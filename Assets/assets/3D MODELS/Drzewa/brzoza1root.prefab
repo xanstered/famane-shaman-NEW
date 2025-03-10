@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 792526009881550529}
   - component: {fileID: 6005918089571179332}
+  - component: {fileID: 8210746212026547451}
   m_Layer: 0
   m_Name: brzoza1root
   m_TagString: Tree
@@ -60,6 +61,41 @@ LODGroup:
     renderers:
     - renderer: {fileID: 6092018350554797014}
   m_Enabled: 1
+--- !u!70 &8210746212026547451
+CapsuleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5350491411821053738}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_Size: {x: 0.5, y: 1}
+  m_Direction: 0
 --- !u!1001 &4848872427986898770
 PrefabInstance:
   m_ObjectHideFlags: 0
