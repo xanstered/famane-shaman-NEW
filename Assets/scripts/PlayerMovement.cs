@@ -18,7 +18,7 @@ public class PlayerMovement : MonoBehaviour
     public float crouchSpeed;
     public float crouchYScale;
     private float startYScale;
-    private bool isCrouching;
+    [HideInInspector] public bool isCrouching;
 
     [Header("Sprinting")]
     public float sprintSpeed;

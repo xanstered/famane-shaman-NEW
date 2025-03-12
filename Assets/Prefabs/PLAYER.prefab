@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1254562195870704789}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: CameraPos
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -42,7 +42,7 @@ GameObject:
   - component: {fileID: 3025462846207879645}
   - component: {fileID: 4565208837096667883}
   - component: {fileID: 4142249421764832532}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: PLAYER
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -114,6 +114,7 @@ MonoBehaviour:
   airMultiplier: 0.4
   crouchSpeed: 1
   crouchYScale: 0.5
+  isCrouching: 0
   sprintSpeed: 8
   jumpKey: 32
   crouchKey: 306
@@ -132,7 +133,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2509072308330604308}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Orientation
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -166,7 +167,8 @@ GameObject:
   - component: {fileID: 2942458894558797518}
   - component: {fileID: 4066468880513360084}
   - component: {fileID: 6650443022051065880}
-  m_Layer: 0
+  - component: {fileID: 7623701947627335571}
+  m_Layer: 10
   m_Name: PlayerCam
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -262,6 +264,23 @@ MonoBehaviour:
   sensX: 400
   sensY: 400
   orientation: {fileID: 2509072308330604308}
+--- !u!114 &7623701947627335571
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3494152181334080855}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f5dc5617a4373c549acd0fb7ca5879e2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bobFrequency: 5
+  bobHorizontalAmplitude: 0.02
+  bobVerticalAmplitude: 0.05
+  headBobSmoothing: 0.2
+  enableHeadBob: 1
 --- !u!1 &3835449074214030538
 GameObject:
   m_ObjectHideFlags: 0
@@ -272,7 +291,7 @@ GameObject:
   m_Component:
   - component: {fileID: 9213588534641220566}
   - component: {fileID: 486206061088936791}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: CameraHolder
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -320,7 +339,7 @@ GameObject:
   - component: {fileID: 726733937899943541}
   - component: {fileID: 1120512276672719716}
   - component: {fileID: 4341215294519020835}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: PlayerObj
   m_TagString: Untagged
   m_Icon: {fileID: 0}
