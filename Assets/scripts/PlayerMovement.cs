@@ -34,6 +34,15 @@ public class PlayerMovement : MonoBehaviour
     public LayerMask whatIsGround;
     bool grounded;
 
+    [Header("Sound Effects")]
+    public AudioSource audioSource;
+    public AudioClip walkSound;
+    public AudioClip jumpSound;
+    public AudioClip crouchSound;
+
+    private float footstepTimer = 0f;
+    private float footstepInterval = 0.4f; 
+
     public Transform orientation;
 
     float horizontalInput;
@@ -49,6 +58,11 @@ public class PlayerMovement : MonoBehaviour
         rb.freezeRotation = true;
         readyToJump = true;
         startYScale = transform.localScale.y;
+
+        if (audioSource == null)
+        {
+            audioSource = gameObject.AddComponent<AudioSource>();
+        }
     }
 
     private void Update()
@@ -57,6 +71,7 @@ public class PlayerMovement : MonoBehaviour
     
         MyInput();
         SpeedControl();
+        HandleFootsteps();
 
         if (grounded)
         {
@@ -65,6 +80,55 @@ public class PlayerMovement : MonoBehaviour
         else
         {
             rb.drag = 0;
+        }
+    }
+
+    private void HandleFootsteps()
+    {
+        if (grounded && (Mathf.Abs(horizontalInput) > 0.1f || Mathf.Abs(verticalInput) > 0.1f))
+        {
+            footstepTimer -= Time.deltaTime;
+
+            if (footstepTimer <= 0)
+            {
+                // interwa³ krokow zalezy tu od predkosci
+                if (isSprinting)
+                    footstepInterval = 0.5f;
+                else if (isCrouching)
+                    footstepInterval = 1.3f;
+                else
+                    footstepInterval = 0.6f;
+
+                PlayFootstepSound();
+
+                // reset timera
+                footstepTimer = footstepInterval;
+            }
+        }
+    }
+
+    private void PlayFootstepSound()
+    {
+        if (walkSound != null && audioSource != null)
+        {
+            audioSource.pitch = Random.Range(0.9f, 1.1f);
+            audioSource.PlayOneShot(walkSound, isCrouching ? 0.5f : 1.0f);
+        }
+    }
+
+    private void PlayJumpSound()
+    {
+        if (jumpSound != null && audioSource != null)
+        {
+            audioSource.PlayOneShot(jumpSound);
+        }
+    }
+
+    private void PlayCrouchSound()
+    {
+        if (crouchSound != null && audioSource != null)
+        {
+            audioSource.PlayOneShot(crouchSound);
         }
     }
 
@@ -82,6 +146,7 @@ public class PlayerMovement : MonoBehaviour
         {
             readyToJump = false;
 
+            PlayJumpSound();
             Jump();
 
             Invoke(nameof(ResetJump), jumpCooldown);
@@ -89,11 +154,13 @@ public class PlayerMovement : MonoBehaviour
 
         if (Input.GetKeyDown(crouchKey) && grounded)
         {
+            PlayCrouchSound();
             StartCrouch();
         }
 
         if (Input.GetKeyUp(crouchKey) && grounded)
         {
+            PlayCrouchSound();
             StopCrouch();
         }
 
