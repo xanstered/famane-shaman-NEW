@@ -9,15 +9,6 @@ EditorBuildSettings:
     path: Assets/Scenes/menu.unity
     guid: 135c855213c2c944db70bece8e90062e
   - enabled: 1
-    path: Assets/Scenes/chata.unity
-    guid: 4ef39fd9a1cadd04c8233a4ab84057b9
-  - enabled: 1
-    path: Assets/Scenes/Prolog.unity
-    guid: 45b4ff1fd93a73741ae971db61e902a4
-  - enabled: 0
-    path: Assets/Scenes/Hub.unity
-    guid: 7b4ff956b93a1e74ba86a4949b2cba48
-  - enabled: 0
-    path: Assets/Scenes/Jotunheim.unity
-    guid: 145666441ee268144a2367b06b03a5e9
+    path: Assets/Scenes/Level 1.unity
+    guid: da1a6f9162d5e814f9e238e1ff3ea381
   m_configObjects: {}
