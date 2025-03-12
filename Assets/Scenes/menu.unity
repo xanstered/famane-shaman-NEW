@@ -819,19 +819,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 474979647}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 949618731}
-        m_TargetAssemblyTypeName: ChooseLevel, Assembly-CSharp
-        m_MethodName: Hub
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!114 &474979647
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1673,7 +1661,7 @@ GameObject:
   - component: {fileID: 1461705894}
   - component: {fileID: 1461705893}
   m_Layer: 5
-  m_Name: Prolog
+  m_Name: Level 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1744,7 +1732,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 949618731}
         m_TargetAssemblyTypeName: ChooseLevel, Assembly-CSharp
-        m_MethodName: PlayPrologue
+        m_MethodName: PlayLevel1
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1774,7 +1762,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: b6e67385b83e0be44a09ec4d3c5b7b2e, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 4af80666fd017634fabbc7568edc60ce, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -2221,19 +2209,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1963043424}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 949618731}
-        m_TargetAssemblyTypeName: ChooseLevel, Assembly-CSharp
-        m_MethodName: PlayJotunheim
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!114 &1963043424
 MonoBehaviour:
   m_ObjectHideFlags: 0

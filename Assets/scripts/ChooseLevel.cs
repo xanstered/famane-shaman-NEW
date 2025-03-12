@@ -5,9 +5,9 @@ using UnityEngine.SceneManagement;
 
 public class ChooseLevel : MonoBehaviour
 {
-    public void PlayPrologue ()
+    public void PlayLevel1 ()
     {
-        SceneManager.LoadScene("Prolog");
+        SceneManager.LoadScene("Level 1");
     }
 
     public void Hub ()

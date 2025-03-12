@@ -7,7 +7,7 @@ public class MainMenu : MonoBehaviour
 {
    public void PlayGame ()
     {
-        FindObjectOfType<LoadingScreen>().LoadScene("chata");
+        FindObjectOfType<LoadingScreen>().LoadScene("Level 1");
     }
 
     public void QuitGame ()
