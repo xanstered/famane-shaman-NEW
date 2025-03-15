@@ -9,6 +9,7 @@ TagManager:
   - Axe
   - Bucket
   - Well
+  - Inspectable
   layers:
   - Default
   - TransparentFX
@@ -21,7 +22,7 @@ TagManager:
   - Axe
   - whatIsGround
   - Player
-  - 
+  - inspectableLayer
   - 
   - 
   - 
