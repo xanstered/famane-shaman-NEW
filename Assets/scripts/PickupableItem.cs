@@ -11,6 +11,6 @@ public class PickupableItem : MonoBehaviour
 
     public virtual void UseItem()
     {
-        Debug.Log("uzyto itemu: " + itemName);
+        Debug.Log("used item: " + itemName);
     }
 }
