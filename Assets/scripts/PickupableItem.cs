@@ -8,6 +8,7 @@ public class PickupableItem : MonoBehaviour
 
     public string itemName;
     public string itemDescription;
+    public bool isKey = false;
 
     public virtual void UseItem()
     {

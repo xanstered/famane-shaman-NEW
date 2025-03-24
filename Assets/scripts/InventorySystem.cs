@@ -157,6 +157,17 @@ public class InventorySystem : MonoBehaviour
 
             //TUTAJ MOZE BYC LOGIKA UZYWANIA ITEMKOW
 
+            RaycastHit hit;
+            if (Physics.Raycast(playerCamera.transform.position, playerCamera.transform.forward, out hit, pickupRange))
+            {
+                DoorController door = hit.collider.GetComponent<DoorController>();
+                if (door != null)
+                {
+                    door.UseKeyOnDoor(itemsInInventory[slotIndex]);
+                    return;
+                }
+            }
+
             DropItem(slotIndex);
 
             promptText.gameObject.SetActive(false);
