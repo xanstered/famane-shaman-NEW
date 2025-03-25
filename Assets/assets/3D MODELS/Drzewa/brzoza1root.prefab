@@ -10,7 +10,6 @@ GameObject:
   m_Component:
   - component: {fileID: 792526009881550529}
   - component: {fileID: 6005918089571179332}
-  - component: {fileID: 8210746212026547451}
   m_Layer: 0
   m_Name: brzoza1root
   m_TagString: Tree
@@ -27,7 +26,7 @@ Transform:
   m_GameObject: {fileID: 5350491411821053738}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 103.192604, y: 0, z: 44.054474}
+  m_LocalPosition: {x: 101.92, y: 0, z: 44.054474}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -61,41 +60,6 @@ LODGroup:
     renderers:
     - renderer: {fileID: 6092018350554797014}
   m_Enabled: 1
---- !u!70 &8210746212026547451
-CapsuleCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5350491411821053738}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_ForceSendLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ForceReceiveLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ContactCaptureLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_CallbackLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  m_Size: {x: 0.5, y: 1}
-  m_Direction: 0
 --- !u!1001 &4848872427986898770
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -169,7 +133,7 @@ PrefabInstance:
       addedObject: {fileID: 7749896846930662809}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 2982d1b5a06c1884e9428e69ef0584c0, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 712178862315045572}
+      addedObject: {fileID: 1124483831313800688}
   m_SourcePrefab: {fileID: 100100000, guid: 2982d1b5a06c1884e9428e69ef0584c0, type: 3}
 --- !u!4 &4953993353279908025 stripped
 Transform:
@@ -208,8 +172,8 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!64 &712178862315045572
-MeshCollider:
+--- !u!65 &1124483831313800688
+BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -224,12 +188,11 @@ MeshCollider:
     m_Bits: 0
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
-  m_ProvidesContacts: 1
+  m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 5
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 5868808691639498094, guid: 2982d1b5a06c1884e9428e69ef0584c0, type: 3}
+  serializedVersion: 3
+  m_Size: {x: 7.3633537, y: 15.113278, z: 8.670788}
+  m_Center: {x: -2.730619, y: -6.556639, z: -1.593756}
 --- !u!23 &6092018350554797014 stripped
 MeshRenderer:
   m_CorrespondingSourceObject: {fileID: -7511558181221131132, guid: 2982d1b5a06c1884e9428e69ef0584c0, type: 3}
