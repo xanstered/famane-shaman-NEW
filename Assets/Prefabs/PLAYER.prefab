@@ -314,6 +314,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b30ad80e178308048a7576f7107b2ea2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  inventorySlots:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  pickupRange: 3
+  pickupLayer:
+    serializedVersion: 2
+    m_Bits: 0
+  promptText: {fileID: 0}
 --- !u!1 &2557205333250384387
 GameObject:
   m_ObjectHideFlags: 0
@@ -460,7 +470,7 @@ MonoBehaviour:
     m_Bits: 2048
   rotationSpeed: 5
   inspectionOffset: {x: 0, y: 0, z: 2}
-  inspectionScale: 1.5
+  inspectionScale: 2
   interactionText: {fileID: 0}
   inspectionUI: {fileID: 0}
 --- !u!1 &6818194255844909582

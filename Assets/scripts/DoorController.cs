@@ -10,6 +10,9 @@ public class DoorController : MonoBehaviour
     public float interactionDistance = 3.0f;
     public LayerMask doorLayer;
 
+    public AudioClip doorOpenSound;
+    private AudioSource audioSource;
+
     private InventorySystem playerInventory;
     private Camera playerCamera;
 
@@ -20,6 +23,15 @@ public class DoorController : MonoBehaviour
     {
         playerInventory = FindAnyObjectByType<InventorySystem>();
         playerCamera = Camera.main;
+
+        audioSource = GetComponent<AudioSource>();
+        if (audioSource == null)
+        {
+            audioSource = gameObject.AddComponent<AudioSource>();
+        }
+
+        audioSource.playOnAwake = false;
+        audioSource.spatialBlend = 1f;
 
         if (playerInventory == null)
         {
@@ -71,8 +83,10 @@ public class DoorController : MonoBehaviour
         {
             Debug.Log("using key on door");
 
-            // Opcjonalnie: Odtwórz dŸwiêk otwierania drzwi lub animacjê
-            // AudioSource.PlayClipAtPoint(doorOpenSound, transform.position);
+            if (doorOpenSound != null)
+            {
+                AudioSource.PlayClipAtPoint(doorOpenSound, transform.position);
+            }
 
             StartCoroutine(LoadSceneWithDelay());
         }
