@@ -10,6 +10,7 @@ TagManager:
   - Bucket
   - Well
   - Inspectable
+  - Pushable
   layers:
   - Default
   - TransparentFX
