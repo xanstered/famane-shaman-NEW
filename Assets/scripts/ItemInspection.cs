@@ -15,7 +15,7 @@ public class ItemInspection : MonoBehaviour
     public float inspectionScale = 1.5f;
 
     [Header("UI")]
-    public Text interactionText;
+    public Text inspectionText;
     public GameObject inspectionUI;
 
     // Referencje do skryptów gracza
@@ -35,6 +35,9 @@ public class ItemInspection : MonoBehaviour
     private float originalSensY;
     private CursorLockMode originalLockMode;
     private bool originalCursorVisible;
+
+    public ItemDescriptionUIManager descriptionManager;
+
 
     void Start()
     {
@@ -63,9 +66,9 @@ public class ItemInspection : MonoBehaviour
         }
 
         // Ukryj tekst interakcji na pocz¹tku
-        if (interactionText != null)
+        if (inspectionText != null)
         {
-            interactionText.gameObject.SetActive(false);
+            inspectionText.gameObject.SetActive(false);
         }
 
         // Ukryj UI inspekcji na pocz¹tku
@@ -116,10 +119,10 @@ public class ItemInspection : MonoBehaviour
                 hitInspectable = true;
 
                 // Poka¿ tekst interakcji
-                if (interactionText != null)
+                if (inspectionText != null)
                 {
-                    interactionText.text = "Naciœnij [E], aby obejrzeæ";
-                    interactionText.gameObject.SetActive(true);
+                    inspectionText.text = "Naciœnij [E], aby obejrzeæ";
+                    inspectionText.gameObject.SetActive(true);
                 }
 
                 // Rozpocznij inspekcjê, jeœli naciœniêto E
@@ -131,9 +134,9 @@ public class ItemInspection : MonoBehaviour
         }
 
         // Ukryj tekst, jeœli nie patrzymy na inspekcjonowalny obiekt
-        if (!hitInspectable && interactionText != null && interactionText.gameObject.activeSelf)
+        if (!hitInspectable && inspectionText != null && inspectionText.gameObject.activeSelf)
         {
-            interactionText.gameObject.SetActive(false);
+            inspectionText.gameObject.SetActive(false);
         }
     }
 
@@ -204,14 +207,21 @@ public class ItemInspection : MonoBehaviour
         }
 
         // Ukryj tekst interakcji
-        if (interactionText != null)
+        if (inspectionText != null)
         {
-            interactionText.gameObject.SetActive(false);
+            inspectionText.gameObject.SetActive(false);
         }
 
         isInspecting = true;
 
         Debug.Log("Rozpoczêto inspekcjê obiektu: " + currentInspectable.name);
+
+        ItemDescription itemDesc = inspectObject.GetComponent<ItemDescription>();
+
+        if (itemDesc != null && descriptionManager != null)
+        {
+            descriptionManager.ShowDescription(itemDesc.itemName, itemDesc.description);
+        }
     }
 
     void HandleInspectionControls()
@@ -289,5 +299,10 @@ public class ItemInspection : MonoBehaviour
         Debug.Log("Zakoñczono inspekcjê obiektu");
         currentInspectable = null;
         isInspecting = false;
+
+        if (descriptionManager != null)
+        {
+            descriptionManager.HideDescription();
+        }
     }
 }
