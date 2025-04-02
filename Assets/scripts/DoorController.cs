@@ -113,9 +113,16 @@ public class DoorController : MonoBehaviour
         {
             Debug.Log("U¿ywam klucza na drzwiach");
 
-            if (playerInventory != null && playerInventory.promptText != null)
+            if (playerInventory != null)
             {
-                playerInventory.promptText.gameObject.SetActive(false);
+                // Usuñ klucz z ekwipunku
+                playerInventory.RemoveItemFromInventory(keyItem);
+
+
+                if (playerInventory.promptText != null)
+                {
+                    playerInventory.promptText.gameObject.SetActive(false);
+                }
             }
 
             if (doorOpenSound != null)

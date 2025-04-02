@@ -197,56 +197,73 @@ public class InventorySystem : MonoBehaviour
         UpdateInventoryUI(slotIndex, item);
     }
 
-    void DropItem(int slotIndex)
+    public void RemoveItemFromInventory(GameObject item)
     {
-        Debug.Log($"upuszczanie itemka ze slotu {slotIndex}");
-
-        GameObject item = itemsInInventory[slotIndex];
-
-        item.SetActive(true);
-
-        item.transform.position = playerCamera.transform.position + playerCamera.transform.forward * 2.0f;
-
-        // dodanie sily do itemka jesli ma rb
-        Rigidbody rb = item.GetComponent<Rigidbody>();
-        if (rb != null)
+        for (int i = 0; i < itemsInInventory.Length; i++)
         {
-            rb.isKinematic = false;
-            rb.velocity = Vector3.zero;
-            rb.angularVelocity = Vector3.zero;
-            rb.AddForce(playerCamera.transform.forward * 2.0f, ForceMode.Impulse);
-        }
-
-        itemsInInventory[slotIndex] = null;
-
-        ClearInventorySlotUI(slotIndex);
-    }
-
-    void UpdateInventoryUI(int slotIndex, GameObject item)
-    {
-        PickupableItem pickupableItem = item.GetComponent<PickupableItem>();
-
-        if (pickupableItem != null && pickupableItem.icon != null && inventorySlots[slotIndex] != null)
-        {
-            Image slotImage = inventorySlots[slotIndex].GetComponentInChildren<Image>();
-            if (slotImage != null)
+            if (itemsInInventory[i] == item)
             {
-                slotImage.sprite = pickupableItem.icon;
-                slotImage.enabled = true;
+                itemsInInventory[i] = null;
+
+                ClearInventorySlotUI(i);
+
+                Debug.Log($"Usuniêto {item.name} z ekwipunku");
+                return;
             }
         }
     }
 
-    void ClearInventorySlotUI(int slotIndex)
-    {
-        if (inventorySlots[slotIndex] != null)
+
+        void DropItem(int slotIndex)
         {
-            Image slotImage = inventorySlots[slotIndex].GetComponentInChildren<Image>();
-            if (slotImage != null)
+            Debug.Log($"upuszczanie itemka ze slotu {slotIndex}");
+
+            GameObject item = itemsInInventory[slotIndex];
+
+            item.SetActive(true);
+
+            item.transform.position = playerCamera.transform.position + playerCamera.transform.forward * 2.0f;
+
+            // dodanie sily do itemka jesli ma rb
+            Rigidbody rb = item.GetComponent<Rigidbody>();
+            if (rb != null)
             {
-                slotImage.sprite = null;
-                slotImage.enabled = false;
+                rb.isKinematic = false;
+                rb.velocity = Vector3.zero;
+                rb.angularVelocity = Vector3.zero;
+                rb.AddForce(playerCamera.transform.forward * 2.0f, ForceMode.Impulse);
+            }
+
+            itemsInInventory[slotIndex] = null;
+
+            ClearInventorySlotUI(slotIndex);
+        }
+
+        void UpdateInventoryUI(int slotIndex, GameObject item)
+        {
+            PickupableItem pickupableItem = item.GetComponent<PickupableItem>();
+
+            if (pickupableItem != null && pickupableItem.icon != null && inventorySlots[slotIndex] != null)
+            {
+                Image slotImage = inventorySlots[slotIndex].GetComponentInChildren<Image>();
+                if (slotImage != null)
+                {
+                    slotImage.sprite = pickupableItem.icon;
+                    slotImage.enabled = true;
+                }
             }
         }
-    }
+
+        void ClearInventorySlotUI(int slotIndex)
+        {
+            if (inventorySlots[slotIndex] != null)
+            {
+                Image slotImage = inventorySlots[slotIndex].GetComponentInChildren<Image>();
+                if (slotImage != null)
+                {
+                    slotImage.sprite = null;
+                    slotImage.enabled = false;
+                }
+            }
+        }
 }
