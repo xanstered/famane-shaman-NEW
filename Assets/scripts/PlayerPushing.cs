@@ -13,6 +13,8 @@ public class PlayerPushing : MonoBehaviour
 
     private void Start()
     {
+        rb = GetComponent<Rigidbody>();
+
         audioSource = GetComponent<AudioSource>();
         if (audioSource == null)
         {

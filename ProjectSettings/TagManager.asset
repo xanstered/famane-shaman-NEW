@@ -11,6 +11,7 @@ TagManager:
   - Well
   - Inspectable
   - Pushable
+  - Ground
   layers:
   - Default
   - TransparentFX

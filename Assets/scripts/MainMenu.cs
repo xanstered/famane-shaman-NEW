@@ -9,10 +9,4 @@ public class MainMenu : MonoBehaviour
     {
         FindObjectOfType<LoadingScreen>().LoadScene("Level 1");
     }
-
-    public void QuitGame ()
-    {
-        Debug.Log("Quit");
-        Application.Quit();
-    }
 }

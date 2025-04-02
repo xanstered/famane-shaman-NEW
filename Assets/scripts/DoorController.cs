@@ -6,23 +6,41 @@ using UnityEngine.SceneManagement;
 
 public class DoorController : MonoBehaviour
 {
-    public string nextSceneName = "Lvl 1 INDOORS";
+    public Transform teleportDestination;
     public float interactionDistance = 3.0f;
     public LayerMask doorLayer;
 
     public AudioClip doorOpenSound;
+    public AudioClip doorCloseSound;
     private AudioSource audioSource;
 
     private InventorySystem playerInventory;
     private Camera playerCamera;
+    private CharacterController playerCharacterController;
 
     public TextMeshProUGUI promptText;
+
+    private bool isLookingAtDoor = false;
 
     // Start is called before the first frame update
     void Start()
     {
         playerInventory = FindAnyObjectByType<InventorySystem>();
         playerCamera = Camera.main;
+
+        GameObject player = GameObject.FindGameObjectWithTag("Player");
+        if (player != null)
+        {
+            playerCharacterController = player.GetComponent<CharacterController>();
+            if (playerCharacterController == null)
+            {
+                Debug.LogWarning("nie ma characterController na obiekcie gracza");
+            }
+        }
+        else
+        {
+            Debug.LogWarning("nie znaleziono obiektu gracza z tagiem 'player'");
+        }
 
         audioSource = GetComponent<AudioSource>();
         if (audioSource == null)
@@ -47,10 +65,20 @@ public class DoorController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        CheckDoorInteraction();
+        bool wasLookingAtDoor = isLookingAtDoor;
+        isLookingAtDoor = CheckDoorInteraction();
+
+        // Ukryj prompt, jeœli przestaliœmy patrzeæ na drzwi
+        if (wasLookingAtDoor && !isLookingAtDoor)
+        {
+            if (playerInventory != null && playerInventory.promptText != null)
+            {
+                playerInventory.promptText.gameObject.SetActive(false);
+            }
+        }
     }
 
-    void CheckDoorInteraction()
+    bool CheckDoorInteraction()
     {
         RaycastHit hit;
 
@@ -58,15 +86,18 @@ public class DoorController : MonoBehaviour
         {
             if (hit.collider.gameObject == gameObject)
             {
-                if (playerInventory.promptText != null)
+                if (playerInventory != null && playerInventory.promptText != null)
                 {
                     playerInventory.promptText.text = "locked";
                     playerInventory.promptText.gameObject.SetActive(true);
                 }
 
                 CheckKeyUsage();
+                return true;
             }
         }
+
+        return false;
     }
 
     void CheckKeyUsage()
@@ -78,34 +109,58 @@ public class DoorController : MonoBehaviour
     {
         PickupableItem pickupableItem = keyItem.GetComponent<PickupableItem>();
 
-
         if (pickupableItem != null && pickupableItem.isKey)
         {
-            Debug.Log("using key on door");
+            Debug.Log("U¿ywam klucza na drzwiach");
+
+            if (playerInventory != null && playerInventory.promptText != null)
+            {
+                playerInventory.promptText.gameObject.SetActive(false);
+            }
 
             if (doorOpenSound != null)
             {
                 AudioSource.PlayClipAtPoint(doorOpenSound, transform.position);
             }
 
-            StartCoroutine(LoadSceneWithDelay());
+            StartCoroutine(TeleportPlayerWithDelay());
         }
         else
         {
             Debug.Log("this is not a key");
-            if (playerInventory.promptText != null)
+            if (playerInventory != null && playerInventory.promptText != null)
             {
                 playerInventory.promptText.text = "locked";
             }
         }
     }
 
-    System.Collections.IEnumerator LoadSceneWithDelay()
+    System.Collections.IEnumerator TeleportPlayerWithDelay()
     {
-        // opoznienie 1sek przed przejsciem
+        //1 sec delay b4 teleportation
         yield return new WaitForSeconds(1f);
 
-        SceneManager.LoadScene(nextSceneName);
+        if (teleportDestination != null && playerCharacterController != null)
+        {
+            playerCharacterController.enabled = false;
+
+            // teleport player
+            playerCharacterController.transform.position = teleportDestination.position;
+            playerCharacterController.transform.rotation = teleportDestination.rotation;
+
+            playerCharacterController.enabled = true;
+
+            if (doorCloseSound != null)
+            {
+                AudioSource.PlayClipAtPoint(doorCloseSound, teleportDestination.position);
+            }
+
+            Debug.Log("player teleported");
+        }
+        else
+        {
+            Debug.LogError("nie ma punktu docelowego teleportacji");
+        }
     }
 
 }

@@ -40,7 +40,7 @@ public class StableBoxPushing : MonoBehaviour
         if (rb != null)
         {
             Vector3 contactNormal = collision.contacts[0].normal;
-            rb.AddForce(contactNormal - contactNormal * stabilityForce, ForceMode.Force);
+            rb.AddForce(contactNormal * stabilityForce, ForceMode.Force);
         }
     }
 }
