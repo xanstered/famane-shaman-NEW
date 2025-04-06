@@ -6,6 +6,8 @@ using UnityEngine.SceneManagement;
 
 public class DoorController : MonoBehaviour
 {
+    FadeInOut fade;
+
     public Transform teleportDestination;
     public float interactionDistance = 3.0f;
     public LayerMask doorLayer;
@@ -25,6 +27,9 @@ public class DoorController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+
+        fade = FindObjectOfType<FadeInOut>();
+
         playerInventory = FindAnyObjectByType<InventorySystem>();
         playerCamera = Camera.main;
 
@@ -142,10 +147,17 @@ public class DoorController : MonoBehaviour
         }
     }
 
+        public IEnumerator FadeTeleport()
+    {
+        fade.FadeIn();
+        yield return new WaitForSeconds(1f);
+    }
+
     System.Collections.IEnumerator TeleportPlayerWithDelay()
     {
-        //1 sec delay b4 teleportation
-        yield return new WaitForSeconds(1f);
+        StartCoroutine(FadeTeleport());
+
+        yield return new WaitForSeconds(0);
 
         if (teleportDestination != null && playerCharacterController != null)
         {

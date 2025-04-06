@@ -12,6 +12,7 @@ TagManager:
   - Inspectable
   - Pushable
   - Ground
+  - FadeInOut
   layers:
   - Default
   - TransparentFX
