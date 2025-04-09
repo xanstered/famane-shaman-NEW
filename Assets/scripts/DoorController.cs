@@ -29,6 +29,10 @@ public class DoorController : MonoBehaviour
     {
 
         fade = FindObjectOfType<FadeInOut>();
+        if (fade == null)
+        {
+            Debug.LogError("nie znaleziono komponentu FadeInOut w scenie");
+        }
 
         playerInventory = FindAnyObjectByType<InventorySystem>();
         playerCamera = Camera.main;
@@ -147,17 +151,15 @@ public class DoorController : MonoBehaviour
         }
     }
 
-        public IEnumerator FadeTeleport()
-    {
-        fade.FadeIn();
-        yield return new WaitForSeconds(1f);
-    }
 
     System.Collections.IEnumerator TeleportPlayerWithDelay()
     {
-        StartCoroutine(FadeTeleport());
+        if (fade != null)
+        {
+            fade.FadeIn();
+        }
 
-        yield return new WaitForSeconds(0);
+        yield return new WaitForSeconds(1f);
 
         if (teleportDestination != null && playerCharacterController != null)
         {
@@ -175,6 +177,13 @@ public class DoorController : MonoBehaviour
             }
 
             Debug.Log("player teleported");
+
+            yield return new WaitForSeconds(0.3f);
+
+            if (fade != null)
+            {
+                fade.FadeOut();
+            }
         }
         else
         {
