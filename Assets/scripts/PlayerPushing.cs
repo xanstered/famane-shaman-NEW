@@ -11,6 +11,9 @@ public class PlayerPushing : MonoBehaviour
 
     private AudioSource audioSource;
 
+    private bool isPushing = false;
+    private GameObject currentPushableObject = null;
+
     private void Start()
     {
         rb = GetComponent<Rigidbody>();
@@ -20,7 +23,29 @@ public class PlayerPushing : MonoBehaviour
         {
             audioSource = gameObject.AddComponent<AudioSource>();
         }
+
+        audioSource.clip = pushingSound;
+        audioSource.loop = true;
+        audioSource.volume = 1f;
+        audioSource.playOnAwake = false;
     }
+
+    private void Update()
+    {
+        if (isPushing && currentPushableObject == null)
+        {
+            StopPushingSound();
+        }
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.CompareTag("Pushable"))
+        {
+            currentPushableObject = collision.gameObject;
+        }
+    }
+
     private void OnCollisionStay(Collision collision)
     {
         if (collision.gameObject.CompareTag("Pushable"))
@@ -34,11 +59,36 @@ public class PlayerPushing : MonoBehaviour
 
                 objectRigidbody.AddForce(pushDirection * pushForce, ForceMode.Force);
 
-                if (pushingSound != null && !audioSource.isPlaying)
+
+                if (!isPushing && pushingSound != null)
                 {
-                    audioSource.PlayOneShot(pushingSound);
+                    isPushing = true;
+                    currentPushableObject = collision.gameObject;
+                    audioSource.Play();
+                    Debug.Log("Rozpoczêto odtwarzanie dŸwiêku pchania");
                 }
             }
         }
     }
+
+    private void OnCollisionExit(Collision collision)
+    {
+        if (collision.gameObject.CompareTag("Pushable") && collision.gameObject == currentPushableObject)
+        {
+            currentPushableObject = null;
+            StopPushingSound();
+            Debug.Log("Kolizja zakoñczona, zatrzymujê dŸwiêk");
+        }
+    }
+
+    private void StopPushingSound()
+    {
+        if (isPushing)
+        {
+            isPushing = false;
+            audioSource.Stop();
+            Debug.Log("Zatrzymano dŸwiêk pchania");
+        }
+    }
+
 }
