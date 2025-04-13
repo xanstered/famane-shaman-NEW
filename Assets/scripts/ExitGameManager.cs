@@ -5,46 +5,46 @@ using UnityEngine.UI;
 
 public class ExitGameManager : MonoBehaviour
 {
-    [Header("menu refs")]
-    [SerializeField] private GameObject mainMenu;
+    [Header("Panele")]
+    [SerializeField] private GameObject mainMenuPanel;
     [SerializeField] private GameObject confirmationPanel;
 
-    [Header("button refs")]
-    [SerializeField] private Button exitButton;
-    [SerializeField] private Button yesButton;
-    [SerializeField] private Button noButton;
+    [Header("Panel Potwierdzenia")]
+    [SerializeField] private Image darkOverlay;
+    [SerializeField] private float overlayAlpha = 0.7f; 
 
-    // Start is called before the first frame update
-    void Start()
+    private void Start()
     {
-        confirmationPanel.SetActive(false);
-
-        exitButton.onClick.AddListener(ShowConfirmationPanel);
-        yesButton.onClick.AddListener(ExitGame);
-        noButton.onClick.AddListener(HideConfirmationPanel);
+        if (confirmationPanel != null)
+            confirmationPanel.SetActive(false);
     }
 
-    public void ShowConfirmationPanel()
+    public void ShowExitConfirmation()
     {
-        mainMenu.SetActive(false);
-        confirmationPanel.SetActive(true);
+        if (confirmationPanel != null)
+            confirmationPanel.SetActive(true);
+
+        if (darkOverlay != null)
+        {
+            Color overlayColor = darkOverlay.color;
+            overlayColor.a = overlayAlpha;
+            darkOverlay.color = overlayColor;
+        }
     }
 
-    public void HideConfirmationPanel()
-    {
-        confirmationPanel.SetActive(false);
-        mainMenu.SetActive(true);
-    }
-
-    public void ExitGame()
+    public void ConfirmExit()
     {
 #if UNITY_EDITOR
-        // Jeœli jesteœmy w edytorze Unity, zatrzymaj tryb play
         UnityEditor.EditorApplication.isPlaying = false;
 #else
-        // W zbudowanej aplikacji, rzeczywiœcie zamknij aplikacjê
-        Application.Quit();
+            Application.Quit();
 #endif
-        Debug.Log("Wyjœcie z gry");
+    }
+
+    public void CancelExit()
+    {
+        // Ukryj panel potwierdzenia
+        if (confirmationPanel != null)
+            confirmationPanel.SetActive(false);
     }
 }
