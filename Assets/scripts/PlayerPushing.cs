@@ -14,6 +14,10 @@ public class PlayerPushing : MonoBehaviour
     private bool isPushing = false;
     private GameObject currentPushableObject = null;
 
+    public float fadeOutDuration = 0.5f;
+    private bool isFadingOut = false;
+    private float initialVolume;
+
     private void Start()
     {
         rb = GetComponent<Rigidbody>();
@@ -28,13 +32,15 @@ public class PlayerPushing : MonoBehaviour
         audioSource.loop = true;
         audioSource.volume = 1f;
         audioSource.playOnAwake = false;
+
+        initialVolume = audioSource.volume;
     }
 
     private void Update()
     {
-        if (isPushing && currentPushableObject == null)
+        if (isPushing && currentPushableObject == null && !isFadingOut)
         {
-            StopPushingSound();
+            StartFadeOut();
         }
     }
 
@@ -60,12 +66,12 @@ public class PlayerPushing : MonoBehaviour
                 objectRigidbody.AddForce(pushDirection * pushForce, ForceMode.Force);
 
 
-                if (!isPushing && pushingSound != null)
+                if (!isPushing && !isFadingOut && pushingSound != null)
                 {
+                    audioSource.volume = initialVolume;
                     isPushing = true;
                     currentPushableObject = collision.gameObject;
                     audioSource.Play();
-                    Debug.Log("Rozpoczêto odtwarzanie dŸwiêku pchania");
                 }
             }
         }
@@ -76,19 +82,43 @@ public class PlayerPushing : MonoBehaviour
         if (collision.gameObject.CompareTag("Pushable") && collision.gameObject == currentPushableObject)
         {
             currentPushableObject = null;
-            StopPushingSound();
-            Debug.Log("Kolizja zakoñczona, zatrzymujê dŸwiêk");
+            if (!isFadingOut)
+            {
+                StartFadeOut();
+            }
         }
     }
 
-    private void StopPushingSound()
+    private void StartFadeOut()
     {
-        if (isPushing)
+        if (isPushing && !isFadingOut)
         {
-            isPushing = false;
-            audioSource.Stop();
-            Debug.Log("Zatrzymano dŸwiêk pchania");
+            isFadingOut = true;
+            StartCoroutine(FadeOutSound());
         }
     }
 
+    private IEnumerator FadeOutSound()
+    {
+        float startVolume = audioSource.volume;
+        float startTime = Time.time;
+        float endTime = startTime + fadeOutDuration;
+
+        while (Time.time < endTime)
+        {
+            float elapsedTime = Time.time - startTime;
+            float percentComplete = elapsedTime / fadeOutDuration;
+
+            audioSource.volume = Mathf.Lerp(startVolume, 0, percentComplete);
+
+            yield return null;
+        }
+
+        audioSource.volume = 0;
+        audioSource.Stop();
+
+        audioSource.volume = initialVolume;
+        isPushing = false;
+        isFadingOut = false;
+    }
 }
